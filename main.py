@@ -1,38 +1,4 @@
-# import numpy as np
-
-# g = 9.80665 # m/s^2
-# m_payload = 50_000 # kg
-# stages = 2
-# specific_impulse = np.array([300, 350]) # s
-# propellant_mass_fraction = np.array([0.9, 0.8])
-# total_delta_v = 10_000 # m/s
-
-
-
 from math import exp
-
-m_payload = 50_000
-g_0 = 9.80665
-specific_impulse = 350
-delta_v = 2_500
-R = exp(delta_v / specific_impulse / g_0)
-r = 0.9
-
-m_stage = ((1 - R) * m_payload) / (R*(1-r) - 1)
-print(m_stage)
-
-def stage_mass(m_payload, specific_impulse, delta_v, propellant_mass_fraction):
-    R = exp(delta_v / specific_impulse / 9.80665)
-    r = propellant_mass_fraction
-    m_stage = ((1 - R) * m_payload) / (R*(1-r) - 1)
-    return m_stage
-
-def total_mass(delta_v_fractions, specific_impulse, propellant_mass_fraction, m_payload, total_delta_v):
-    payload_mass = m_payload
-    for i in range(len(delta_v_fractions)):
-        payload_mass = stage_mass(payload_mass, specific_impulse[i], delta_v_fractions[i] * total_delta_v, propellant_mass_fraction[i])
-    return payload_mass
-
 
 class Stage:
     def __init__(self, stage, specific_impulse, propellant_mass_fraction):
@@ -70,4 +36,8 @@ class Rocket:
             self.stages[i].build(payload_mass, delta_v_split[i])
             payload_mass = self.stages[i].wet_mass
         self.total_mass = payload_mass
-        
+
+rocket0 = Rocket(50_000, 2_500, 1)
+rocket0.add_stage(350, 0.9)
+rocket0.build([1.0])
+print(rocket0.total_mass)
