@@ -20,8 +20,30 @@ class Stage:
         exhaust_velocity = self.specific_impulse * g0
         self.mass_ratio = exp(delta_v / exhaust_velocity)
         self.stage_mass = (self.payload_mass * (1 - self.mass_ratio)) / (self.mass_ratio * (1 - self.propellant_mass_fraction) - 1)
-        self.dry_mass = self.stage_mass * (1 - self.propellant_mass_fraction)
-        self.wet_mass = self.stage_mass + self.payload_mass
+        
+    @property
+    def wet_mass(self):
+        return self.stage_mass + self.payload_mass
+    
+    @property
+    def dry_mass(self):
+        return self.stage_mass * (1 - self.propellant_mass_fraction) + self.payload_mass
+    
+    @property
+    def structural_mass(self):
+        return self.stage_mass * (1 - self.propellant_mass_fraction)
+    
+    @property
+    def propellant_mass(self):
+        return self.stage_mass * self.propellant_mass_fraction
+    
+    @property
+    def exhaust_velocity(self):
+        return self.specific_impulse * 9.80665
+    
+    @property
+    def mass_ratio(self):
+        return exp(self.delta_v / (self.exhaust_velocity))
         
 class Rocket:
     def __init__(self, payload, delta_v, total_stages):
