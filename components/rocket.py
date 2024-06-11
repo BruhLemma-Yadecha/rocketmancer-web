@@ -29,7 +29,7 @@ class Rocket:
         
         bounds = [(0, 1) for _ in range(self.total_stages)]
         linear_constraint = LinearConstraint([1] * self.total_stages, 1, 1)
-        result = differential_evolution(objective, bounds, constraints=[linear_constraint])
+        result = differential_evolution(objective, bounds, constraints=[linear_constraint], workers=-1)
         
         if result.success:
             self.delta_v_fractions = result.x
