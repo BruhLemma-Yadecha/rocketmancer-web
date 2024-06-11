@@ -1,5 +1,6 @@
 from math import exp
 from scipy.optimize import differential_evolution, LinearConstraint
+from constants import g_0
 
 class Stage:
     def __init__(self, stage, specific_impulse, propellant_mass_fraction):
@@ -15,9 +16,7 @@ class Stage:
     def build(self, payload_mass, delta_v):
         self.payload_mass = payload_mass
         self.delta_v = delta_v
-        g0 = 9.80665
-        exhaust_velocity = self.specific_impulse * g0
-        self.mass_ratio = exp(delta_v / exhaust_velocity)
+        self.mass_ratio = exp(delta_v / self.exhaust_velocity)
         self.stage_mass = (self.payload_mass * (1 - self.mass_ratio)) / (self.mass_ratio * (1 - self.propellant_mass_fraction) - 1)
         
     @property
@@ -38,7 +37,7 @@ class Stage:
     
     @property
     def exhaust_velocity(self):
-        return self.specific_impulse * 9.80665
+        return self.specific_impulse * g_0
     
     @property
     def mass_ratio(self):
