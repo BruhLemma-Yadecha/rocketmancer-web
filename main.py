@@ -1,6 +1,5 @@
 from math import exp
-import numpy as np
-import scipy.optimize as opt
+from scipy.optimize import differential_evolution, LinearConstraint
 
 class Stage:
     def __init__(self, stage, specific_impulse, propellant_mass_fraction):
@@ -20,8 +19,30 @@ class Stage:
         exhaust_velocity = self.specific_impulse * g0
         self.mass_ratio = exp(delta_v / exhaust_velocity)
         self.stage_mass = (self.payload_mass * (1 - self.mass_ratio)) / (self.mass_ratio * (1 - self.propellant_mass_fraction) - 1)
-        self.dry_mass = self.stage_mass * (1 - self.propellant_mass_fraction)
-        self.wet_mass = self.stage_mass + self.payload_mass
+        
+    @property
+    def wet_mass(self):
+        return self.stage_mass + self.payload_mass
+    
+    @property
+    def dry_mass(self):
+        return self.stage_mass * (1 - self.propellant_mass_fraction) + self.payload_mass
+    
+    @property
+    def structural_mass(self):
+        return self.stage_mass * (1 - self.propellant_mass_fraction)
+    
+    @property
+    def propellant_mass(self):
+        return self.stage_mass * self.propellant_mass_fraction
+    
+    @property
+    def exhaust_velocity(self):
+        return self.specific_impulse * 9.80665
+    
+    @property
+    def mass_ratio(self):
+        return exp(self.delta_v / (self.exhaust_velocity))
         
 class Rocket:
     def __init__(self, payload, delta_v, total_stages):
@@ -43,30 +64,23 @@ class Rocket:
         for i in range(self.total_stages):
             self.stages[i].build(payload_mass, delta_v_split[i])
             payload_mass = self.stages[i].wet_mass
-        
-        # print(*delta_v_split)
-        # for stage in self.stages:
-        #     print("S{}: {} (Wet), {} (Payload)".format(stage.stage, stage.wet_mass, stage.payload_mass))
-        self.total_mass = self.stages[-1].wet_mass
-        # print("Total Mass:", self.total_mass)
-        # print()
-        
+         
     def optimize(self):
-        def constraint(delta_v_fractions):
-            return sum(delta_v_fractions) - 1
-        
         def objective(delta_v_fractions):
             self.build(delta_v_fractions)
             return self.total_mass if self.total_mass > 0 else float('inf')
         
-        initial_guess = [1.0 / self.total_stages] * self.total_stages
         bounds = [(0, 1) for _ in range(self.total_stages)]
-        linear_constraint = opt.LinearConstraint([1] * self.total_stages, 1, 1)
-        result = opt.differential_evolution(objective, bounds, constraints=[linear_constraint], hess=0)
+        linear_constraint = LinearConstraint([1] * self.total_stages, 1, 1)
+        result = differential_evolution(objective, bounds, constraints=[linear_constraint], hess=0)
         self.build(result.x)
         print(result)
         self.print_configuration()
-        return result.x
+        self.delta_v_fractions = result.x
+        
+    @property
+    def delta_v_fractions(self):
+        return [stage.delta_v for stage in self.stages]
     
     def print_configuration(self):
         for stage in self.stages:
