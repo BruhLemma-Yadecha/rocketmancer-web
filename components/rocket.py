@@ -30,10 +30,12 @@ class Rocket:
         bounds = [(0, 1) for _ in range(self.total_stages)]
         linear_constraint = LinearConstraint([1] * self.total_stages, 1, 1)
         result = differential_evolution(objective, bounds, constraints=[linear_constraint])
-        self.build(result.x)
-        print(result)
-        self.print_configuration()
-        self.delta_v_fractions = result.x
+        
+        if result.success:
+            self.delta_v_fractions = result.x
+            self.build(result.x)
+        else:
+            print("Failed to optimize! Rocket may be impossible or nearly impossible!")
         
     @property
     def delta_v_split(self):
