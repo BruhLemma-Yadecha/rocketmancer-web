@@ -1,48 +1,6 @@
-from math import exp
 from scipy.optimize import differential_evolution, LinearConstraint
-from constants import g_0
+from stage import Stage
 
-class Stage:
-    def __init__(self, stage, specific_impulse, propellant_mass_fraction):
-        self.stage = stage
-        self.specific_impulse = specific_impulse
-        self.propellant_mass_fraction = propellant_mass_fraction
-        self.payload_mass = None
-        self.delta_v = None
-        self.mass_ratio = None
-        self.wet_mass = None
-        self.dry_mass = None
-        
-    def build(self, payload_mass, delta_v):
-        self.payload_mass = payload_mass
-        self.delta_v = delta_v
-        self.mass_ratio = exp(delta_v / self.exhaust_velocity)
-        self.stage_mass = (self.payload_mass * (1 - self.mass_ratio)) / (self.mass_ratio * (1 - self.propellant_mass_fraction) - 1)
-        
-    @property
-    def wet_mass(self):
-        return self.stage_mass + self.payload_mass
-    
-    @property
-    def dry_mass(self):
-        return self.stage_mass * (1 - self.propellant_mass_fraction) + self.payload_mass
-    
-    @property
-    def structural_mass(self):
-        return self.stage_mass * (1 - self.propellant_mass_fraction)
-    
-    @property
-    def propellant_mass(self):
-        return self.stage_mass * self.propellant_mass_fraction
-    
-    @property
-    def exhaust_velocity(self):
-        return self.specific_impulse * g_0
-    
-    @property
-    def mass_ratio(self):
-        return exp(self.delta_v / (self.exhaust_velocity))
-        
 class Rocket:
     def __init__(self, payload, delta_v, total_stages):
         self.total_stages = total_stages
@@ -71,14 +29,14 @@ class Rocket:
         
         bounds = [(0, 1) for _ in range(self.total_stages)]
         linear_constraint = LinearConstraint([1] * self.total_stages, 1, 1)
-        result = differential_evolution(objective, bounds, constraints=[linear_constraint], hess=0)
+        result = differential_evolution(objective, bounds, constraints=[linear_constraint])
         self.build(result.x)
         print(result)
         self.print_configuration()
         self.delta_v_fractions = result.x
         
     @property
-    def delta_v_fractions(self):
+    def delta_v_split(self):
         return [stage.delta_v for stage in self.stages]
     
     def print_configuration(self):
