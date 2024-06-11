@@ -29,7 +29,10 @@ class Rocket:
         self.payload = payload
         self.delta_v = delta_v
         self.stages = []
-        self.total_mass = None
+    
+    @property
+    def total_mass(self):
+        return self.stages[-1].wet_mass if self.stages else 0.0
         
     def add_stage(self, specific_impulse, propellant_mass_fraction):
         self.stages.append(Stage(self.total_stages - len(self.stages) - 1, specific_impulse, propellant_mass_fraction))
@@ -59,7 +62,7 @@ class Rocket:
         initial_guess = [1.0 / self.total_stages] * self.total_stages
         bounds = [(0, 1) for _ in range(self.total_stages)]
         linear_constraint = opt.LinearConstraint([1] * self.total_stages, 1, 1)
-        result = opt.differential_evolution(objective, bounds, constraints=[linear_constraint])
+        result = opt.differential_evolution(objective, bounds, constraints=[linear_constraint], hess=0)
         self.build(result.x)
         print(result)
         self.print_configuration()
