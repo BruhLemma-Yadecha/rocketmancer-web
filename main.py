@@ -41,12 +41,12 @@ class Rocket:
             self.stages[i].build(payload_mass, delta_v_split[i])
             payload_mass = self.stages[i].wet_mass
         
-        print(*delta_v_split)
-        for stage in self.stages:
-            print("S{}: {} (Wet), {} (Payload)".format(stage.stage, stage.wet_mass, stage.payload_mass))
+        # print(*delta_v_split)
+        # for stage in self.stages:
+        #     print("S{}: {} (Wet), {} (Payload)".format(stage.stage, stage.wet_mass, stage.payload_mass))
         self.total_mass = sum(stage.wet_mass for stage in self.stages)
-        print("Total Mass:", self.total_mass)
-        print()
+        # print("Total Mass:", self.total_mass)
+        # print()
         
     def optimize(self):
         def constraint(delta_v_fractions):
@@ -61,10 +61,26 @@ class Rocket:
         result = opt.minimize(objective, initial_guess, constraints={'type': 'eq', 'fun': constraint}, bounds=bounds)
         self.build(result.x)
         print(result)
+        self.print_configuration()
         return result.x
+    
+    def print_configuration(self):
+        for stage in self.stages:
+            print("Stage {}".format(stage.stage))
+            print("     Wet:", stage.wet_mass)
+            print("     Dry:", stage.dry_mass)
+            print("     Payload:", stage.payload_mass)
+            print("     Mass Ratio:", stage.mass_ratio)
+            print("     Delta V:", stage.delta_v)
+            
+        print("Total Mass:", self.total_mass)
+        print()
 
-rocket0 = Rocket(50, 10_000, 2)
-rocket0.add_stage(350, 0.9)
-rocket0.add_stage(375, 0.9)
+rocket0 = Rocket(48.6, 17911.9, 3)
+rocket0.add_stage(263, 0.943231441)
+rocket0.add_stage(421, 0.919185812)
+rocket0.add_stage(421, 0.890243902)
 rocket0.optimize()
+print("Total Mass:", rocket0.total_mass)
+rocket0.build([0.207662671, 0.431446824, 0.360890505])
 print("Total Mass:", rocket0.total_mass)
