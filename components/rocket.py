@@ -52,3 +52,11 @@ class Rocket:
             
         print("Total Mass:", self.total_mass)
         print()
+        
+    def to_json(self):
+        return {
+            "payload": self.payload,
+            "delta_v": self.delta_v,
+            "total_stages": self.total_stages,
+            "stages": [stage.to_json() for stage in self.stages]
+        }

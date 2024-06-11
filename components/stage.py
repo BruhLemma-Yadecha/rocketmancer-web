@@ -35,3 +35,18 @@ class Stage:
     @property
     def mass_ratio(self):
         return exp(self.delta_v / (self.exhaust_velocity))
+    
+    def to_json(self):
+        return {
+            "stage": self.stage,
+            "specific_impulse": self.specific_impulse,
+            "propellant_mass_fraction": self.propellant_mass_fraction,
+            "payload_mass": self.payload_mass,
+            "delta_v": self.delta_v,
+            "wet_mass": self.wet_mass,
+            "dry_mass": self.dry_mass,
+            "structural_mass": self.structural_mass,
+            "propellant_mass": self.propellant_mass,
+            "exhaust_velocity": self.exhaust_velocity,
+            "mass_ratio": self.mass_ratio
+        }
