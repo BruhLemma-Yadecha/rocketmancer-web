@@ -44,7 +44,7 @@ class Rocket:
         # print(*delta_v_split)
         # for stage in self.stages:
         #     print("S{}: {} (Wet), {} (Payload)".format(stage.stage, stage.wet_mass, stage.payload_mass))
-        self.total_mass = sum(stage.wet_mass for stage in self.stages)
+        self.total_mass = self.stages[-1].wet_mass
         # print("Total Mass:", self.total_mass)
         # print()
         
@@ -58,7 +58,8 @@ class Rocket:
         
         initial_guess = [1.0 / self.total_stages] * self.total_stages
         bounds = [(0, 1) for _ in range(self.total_stages)]
-        result = opt.minimize(objective, initial_guess, constraints={'type': 'eq', 'fun': constraint}, bounds=bounds)
+        linear_constraint = opt.LinearConstraint([1] * self.total_stages, 1, 1)
+        result = opt.differential_evolution(objective, bounds, constraints=[linear_constraint])
         self.build(result.x)
         print(result)
         self.print_configuration()
@@ -76,11 +77,7 @@ class Rocket:
         print("Total Mass:", self.total_mass)
         print()
 
-rocket0 = Rocket(48.6, 17911.9, 3)
-rocket0.add_stage(263, 0.943231441)
-rocket0.add_stage(421, 0.919185812)
-rocket0.add_stage(421, 0.890243902)
+rocket0 = Rocket(50, 5000, 2)
+rocket0.add_stage(350, 0.9)
+rocket0.add_stage(375, 0.9)
 rocket0.optimize()
-print("Total Mass:", rocket0.total_mass)
-rocket0.build([0.207662671, 0.431446824, 0.360890505])
-print("Total Mass:", rocket0.total_mass)
