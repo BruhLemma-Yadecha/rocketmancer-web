@@ -1,5 +1,5 @@
 from scipy.optimize import differential_evolution, LinearConstraint
-from stage import Stage
+from components.stage import Stage
 
 class Rocket:
     def __init__(self, payload, delta_v, total_stages):
@@ -13,7 +13,10 @@ class Rocket:
         return self.stages[-1].wet_mass if self.stages else 0.0
         
     def add_stage(self, specific_impulse, propellant_mass_fraction):
-        self.stages.append(Stage(self.total_stages - len(self.stages) - 1, specific_impulse, propellant_mass_fraction))
+        new_stage = Stage(self.total_stages - len(self.stages) - 1, 
+                          specific_impulse, 
+                          propellant_mass_fraction)
+        self.stages.append(new_stage)
         
     def build(self, delta_v_fractions):
         delta_v_split = [self.delta_v * f for f in delta_v_fractions]
@@ -22,15 +25,21 @@ class Rocket:
             self.stages[i].build(payload_mass, delta_v_split[i])
             payload_mass = self.stages[i].wet_mass
          
-    def optimize(self):
-        def objective(delta_v_fractions):
+    def __objective__(self, delta_v_fractions):
             self.build(delta_v_fractions)
-            return self.total_mass if self.total_mass > 0 else float('inf')
-        
+            return self.total_mass
+    
+    def optimize(self):
         bounds = [(0, 1) for _ in range(self.total_stages)]
         linear_constraint = LinearConstraint([1] * self.total_stages, 1, 1)
-        result = differential_evolution(objective, bounds, constraints=[linear_constraint], workers=-1)
-        
+        initial_configuration = [1 / self.total_stages] * self.total_stages
+        result = differential_evolution(self.__objective__, 
+                                        bounds, 
+                                        constraints=[linear_constraint], 
+                                        workers=-1,
+                                        updating='deferred',
+                                        disp=True,
+                                        x0=initial_configuration)
         if result.success:
             self.delta_v_fractions = result.x
             self.build(result.x)
