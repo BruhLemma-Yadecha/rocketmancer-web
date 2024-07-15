@@ -1,6 +1,5 @@
 from scipy.optimize import differential_evolution, LinearConstraint
-from scipy.constants import g as g_0
-from components.stage import Stage
+from .stage import Stage
 
 class Rocket:
     def __init__(self, payload, delta_v, total_stages):
