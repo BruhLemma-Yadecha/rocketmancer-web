@@ -30,6 +30,10 @@ class Rocket:
             return self.total_mass
     
     def optimize(self):
+        # needs at least 1 stage
+        if self.total_stages < 1:
+            raise ValueError("Rocket must have at least 1 stage")
+            
         bounds = [(0, 1) for _ in range(self.total_stages)]
         linear_constraint = LinearConstraint([1] * self.total_stages, 1, 1)
         initial_configuration = [1 / self.total_stages] * self.total_stages
