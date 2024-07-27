@@ -1,5 +1,5 @@
 from math import exp
-from constants import g_0
+from scipy.constants import g
 
 class Stage:
     def __init__(self, stage, specific_impulse, propellant_mass_fraction):
@@ -30,7 +30,7 @@ class Stage:
     
     @property
     def exhaust_velocity(self):
-        return self.specific_impulse * g_0
+        return self.specific_impulse * g
     
     @property
     def mass_ratio(self):
