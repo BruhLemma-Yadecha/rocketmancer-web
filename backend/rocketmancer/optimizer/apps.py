@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class OptimizationConfig(AppConfig):
+class OptimizerConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'optimization'
+    name = 'optimizer'

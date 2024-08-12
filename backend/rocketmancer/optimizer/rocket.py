@@ -71,7 +71,8 @@ class Rocket:
     def to_json(self):
         return {
             "payload": self.payload,
-            "delta_v": self.delta_v,
-            "total_stages": self.total_stages,
+            "deltaV": self.delta_v,
+            "totalStages": self.total_stages,
+            "totalMass": self.total_mass,
             "stages": [stage.to_json() for stage in self.stages]
         }

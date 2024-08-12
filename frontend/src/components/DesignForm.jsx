@@ -2,13 +2,13 @@ import { useState } from "react";
 
 const DesignForm = ({ rocket, setRocket }) => {
   const [specificImpulse, setSpecificImpulse] = useState(0);
-  const [propellantMassRatio, setPropellantMassRatio] = useState(0);
+  const [propellantMassFraction, setPropellantMassFraction] = useState(0);
 
   const addStage = () => {
     if (!rocket.stages) {
       rocket.stages = [];
     }
-    const newStages = [...rocket.stages, { specificImpulse, propellantMassRatio }];
+    const newStages = [...rocket.stages, { specificImpulse, propellantMassFraction }];
     setRocket({ ...rocket, stages: newStages });
   };
   return (
@@ -23,8 +23,8 @@ const DesignForm = ({ rocket, setRocket }) => {
       <label>Propellant Mass Ratio:</label>
       <input
         type="number"
-        value={propellantMassRatio}
-        onChange={(e) => setPropellantMassRatio(e.target.value)}
+        value={propellantMassFraction}
+        onChange={(e) => setPropellantMassFraction(e.target.value)}
       /> &nbsp;
       <button onClick={addStage}>Add Stage!</button>
     </>

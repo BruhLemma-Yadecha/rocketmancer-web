@@ -1,6 +1,8 @@
 import "../styles/Rocket.css";
 import Stages from "./Stages";
 
+import axios from "axios";
+
 const Rocket = ({ rocket, setRocket }) => {
   if (rocket.stages.length !== rocket.totalStages) {
     return (
@@ -10,11 +12,20 @@ const Rocket = ({ rocket, setRocket }) => {
           stages={rocket.stages || stages}
           setStages={(stages) => setRocket({ ...rocket, stages })}
         />
-        <p>Status: {rocket.stages.length === rocket.totalStages ? "Complete!" : "Incomplete!"}</p>
+        <p>
+          Status:{" "}
+          {rocket.stages.length === rocket.totalStages
+            ? "Complete!"
+            : "Incomplete!"}
+        </p>
       </div>
-    );  
+    );
   }
-  return <p>UNDER CONSTRUCTION!</p>
+  axios.post("http://localhost:8000/optimize/", rocket).then((response) => {
+    console.log(response.data);
+  });
+
+  return <p>Optimization complete!</p>;
 };
 
 export default Rocket;
