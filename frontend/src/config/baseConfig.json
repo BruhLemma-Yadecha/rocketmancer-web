@@ -1,0 +1,8 @@
+{
+  "rocket": {
+    "name": "Billy Jean",
+    "payload": 50000,
+    "deltaV": 10000,
+    "totalStages": 3
+  }
+}
