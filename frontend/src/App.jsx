@@ -1,7 +1,17 @@
-import { useState } from 'react'
+import { useState } from "react";
+import "./App.css";
+import DesignForm from "./components/DesignForm";
+import Stages from "./components/Stages";
 
 function App() {
-  return <h1>Hello, world!</h1>
+  const [stages, setStages] = useState([]);
+  return (
+    <div>
+      <h1 className={'title'}>🚀rocketmancer</h1>
+      <Stages stages={stages} setStages={setStages} />
+      <DesignForm stages={stages} setStages={setStages} />
+    </div>
+  );
 }
 
-export default App
+export default App;
