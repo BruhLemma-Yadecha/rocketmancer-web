@@ -1,15 +1,15 @@
 import { useState } from "react";
 import "./App.css";
-import DesignForm from "./components/DesignForm";
-import Stages from "./components/Stages";
+import baseConfig from "./config/baseConfig.json";
+import Rocket from "./components/Rocket";
+import Title from './components/Title';
 
 function App() {
-  const [stages, setStages] = useState([]);
+  const [rocket, setRocket] = useState(baseConfig.rocket);
   return (
     <div>
-      <h1 className={'title'}>🚀rocketmancer</h1>
-      <Stages stages={stages} setStages={setStages} />
-      <DesignForm stages={stages} setStages={setStages} />
+      <Title />
+      <Rocket rocket={rocket} setRocket={setRocket} />
     </div>
   );
 }
