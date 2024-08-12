@@ -1,8 +1,10 @@
+from typing import List
+
 from scipy.optimize import differential_evolution, LinearConstraint
 from .stage import Stage
 
 class Rocket:
-    def __init__(self, payload, delta_v, total_stages):
+    def __init__(self, payload: float, delta_v: float, total_stages: int):
         self.total_stages = total_stages
         self.payload = payload
         self.delta_v = delta_v
@@ -12,20 +14,20 @@ class Rocket:
     def total_mass(self):
         return self.stages[-1].wet_mass if self.stages else 0.0
         
-    def add_stage(self, specific_impulse, propellant_mass_fraction):
+    def add_stage(self, specific_impulse: float, propellant_mass_fraction: float):
         new_stage = Stage(self.total_stages - len(self.stages) - 1, 
                           specific_impulse, 
                           propellant_mass_fraction)
         self.stages.append(new_stage)
         
-    def build(self, delta_v_fractions):
+    def build(self, delta_v_fractions: List[float]):
         delta_v_split = [self.delta_v * f for f in delta_v_fractions]
         payload_mass = self.payload
         for i in range(self.total_stages):
             self.stages[i].build(payload_mass, delta_v_split[i])
             payload_mass = self.stages[i].wet_mass
          
-    def __objective__(self, delta_v_fractions):
+    def __objective__(self, delta_v_fractions: List[float]):
             self.build(delta_v_fractions)
             return self.total_mass
     
