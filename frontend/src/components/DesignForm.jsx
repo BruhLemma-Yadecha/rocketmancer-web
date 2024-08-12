@@ -4,7 +4,7 @@ const DesignForm = ({ stages, setStages }) => {
     };
   return (
     <>
-      <h2>Design Form</h2>
+      <h2>Initial Parameters</h2>
       <button onClick={addStage}>Add Stage {stages.length + 1}!</button>
     </>
   );
