@@ -1,4 +1,4 @@
-from components.rocket import Rocket
+from config.optimization.rocket import Rocket
 
 rocket0 = Rocket(50, 5000, 2)
 rocket0.add_stage(400, 0.9)
