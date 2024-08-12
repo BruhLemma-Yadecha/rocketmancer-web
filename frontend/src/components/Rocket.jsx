@@ -4,9 +4,7 @@ import Stages from "./Stages";
 const Rocket = ({ rocket, setRocket }) => {
   let stages = [];
   if (!rocket.stages) {
-    stages = Array.from({ length: rocket.totalStages }, (_, i) => ({
-      number: i + 1,
-    }));
+    stages = [];
   }
   return (
     <div>
