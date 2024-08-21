@@ -21,7 +21,7 @@ const Rocket = ({ rocket, setRocket }) => {
       </div>
     );
   }
-  axios.post("http://localhost:8000/optimize/", rocket).then((response) => {
+  axios.post("http://backend:8000/optimize/", rocket).then((response) => {
     console.log(response.data);
   });
 
