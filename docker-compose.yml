@@ -8,25 +8,15 @@ services:
       - ./backend:/app
     ports:
       - "8000:8000"
-  
-  frontend:
+  nginx:
     build:
       context: ./frontend
-    container_name: react_frontend
-    command: npm start
-    volumes:
-      - ./frontend:/app
-    ports:
-      - "3000:3000"
-
-  nginx:
-    image: nginx:latest
     container_name: nginx
-    ports:
-      - "80:80"
+    
     volumes:
       - ./nginx/rocketmancer.conf:/etc/nginx/conf.d/default.conf
       - ./frontend/dist:/usr/share/nginx/html
+    ports:
+      - "80:80"
     depends_on:
       - backend
-      - frontend
