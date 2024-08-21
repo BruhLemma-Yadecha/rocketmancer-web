@@ -1,4 +1,6 @@
 # rocketmancer-web
+![WIP](https://img.shields.io/badge/WIP-Transitioning_To_Docker-yellow)
+
 ![Python](https://img.shields.io/badge/Python-000000?style=flat&logo=python&logoColor=306998)
 ![JavaScript](https://img.shields.io/badge/JavaScript-000000?style=flat&logo=javascript&logoColor=F7DF1E)
 ![HTML](https://img.shields.io/badge/HTML-000000?style=flat&logo=html5&logoColor=E34F26)
@@ -6,9 +8,10 @@
 
 ![React](https://img.shields.io/badge/React-000000?style=flat&logo=react&logoColor=61DAFB)
 ![Django](https://img.shields.io/badge/Django-000000?style=flat&logo=django&logoColor=092E20)
+![Scipy](https://img.shields.io/badge/Scipy-000000?style=flat&logo=scipy&logoColor=8CAAE6)
 ![Nginx](https://img.shields.io/badge/Nginx-000000?style=flat&logo=nginx&logoColor=009639)
 ![Docker](https://img.shields.io/badge/Docker-000000?style=flat&logo=docker&logoColor=2496ED)
-![Scipy](https://img.shields.io/badge/Scipy-000000?style=flat&logo=scipy&logoColor=8CAAE6)
+
 
 A WIP web port of [rocketmancer](https://github.com/BruhLemma-Yadecha/rocketmancer), a multi-stage rocket optimizer.
 
