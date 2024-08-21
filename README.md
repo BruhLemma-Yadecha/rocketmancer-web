@@ -16,7 +16,7 @@
 A WIP web port of [rocketmancer](https://github.com/BruhLemma-Yadecha/rocketmancer), a multi-stage rocket optimizer.
 
 ## Introduction
-The [original rocketmancer](https://github.com/BruhLemma-Yadecha/rocketmancer) and its own predecessor, [multistage](https://github.com/BruhLemma-Yadecha/multistage) were simple projects that built optimized configurations for a singe multi-staged rocket, given trip parameters and information about the vehicle configuration.
+rocketmancer-web is a multi-stage rocket delta-V optimizer based on the [original rocketmancer](https://github.com/BruhLemma-Yadecha/rocketmancer) and its own predecessor, [multistage](https://github.com/BruhLemma-Yadecha/multistage). It takes a set of trip and vehicle parameters to make the initial mass of the rocket as small as possible.
 
 With rocketmancer-web, I wanted to fix the primary issue of both of those legacy projects: the lack of an easy-to-use, friendly user experience. By using scipy, I've also further optimized the algorithm that generates the final configuration, making this version best-in-class.
 
