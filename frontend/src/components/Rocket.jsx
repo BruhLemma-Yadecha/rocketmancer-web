@@ -1,5 +1,6 @@
 import "../styles/Rocket.css";
 import Stages from "./Stages";
+import Stage from "./Stage";
 
 import axios from "axios";
 
@@ -22,10 +23,19 @@ const Rocket = ({ rocket, setRocket }) => {
     );
   }
   axios.post("http://backend:8000/optimize/", rocket).then((response) => {
-    console.log(response.data);
+    setRocket(response.data)
   });
 
-  return <p>Optimization complete!</p>;
+  return (
+    <div>
+      <h2 className={"rocketName"}>Billy Jean</h2>
+      <em>Stages:</em> {rocket.totalStages}
+      <em>Delta-V:</em> {rocket.deltaV}
+      <em>Payload:</em> {rocket.payload}
+      <em>Total Mass:</em> {rocket.totalMass}
+      {rocket.stages.map((stage) => <Stage stage={stage} />)}
+    </div>
+  )
 };
 
 export default Rocket;
