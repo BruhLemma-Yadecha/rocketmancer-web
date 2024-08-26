@@ -1,0 +1,15 @@
+{
+    "name": "Billy Jean",
+    "totalStages": 2,
+    "totalDeltaV": 4760.08,
+    "stages": [
+        {
+            "specificImpulse": 307.36,
+            "propellantMassFraction": 0.83
+        },
+        {
+            "specificImpulse": 348.81,
+            "propellantMassFraction": 0.87
+        }
+    ]
+}
