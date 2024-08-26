@@ -8,7 +8,7 @@ def optimize(request):
     data = request.data
     rocket0 = Rocket(
         payload=data['payload'],
-        delta_v=data['deltaV'],
+        delta_v=data['totalDeltaV'],
         total_stages=data['totalStages']
     )
     for stage in data['stages']:

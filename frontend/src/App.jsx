@@ -4,6 +4,7 @@ import baseConfig from "./config/baseConfig.json";
 import Rocket from "./components/Rocket";
 import Title from './components/Title';
 import DesignForm from "./components/DesignForm";
+import Parameters from "./components/Parameters/Parameters";
 
 function App() {
   const [rocket, setRocket] = useState(baseConfig.rocket);
@@ -12,6 +13,7 @@ function App() {
       <Title />
       <Rocket rocket={rocket} setRocket={setRocket} />
       <DesignForm rocket={rocket} setRocket={setRocket} />
+      <Parameters setRocket={setRocket}/>
     </div>
   );
 }
