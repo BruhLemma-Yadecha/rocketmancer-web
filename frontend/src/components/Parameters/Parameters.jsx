@@ -22,7 +22,18 @@ const Parameters = () => {
 
     const setTotalStages = (totalStages) => {
         if (totalStages < 1) return;
-        setConfig({ ...config, totalStages });
+        if (totalStages < config.totalStages) {
+            const newStages = config.stages.slice(0, totalStages);
+            setConfig({ ...config, totalStages, stages: newStages });
+        } else if (totalStages > config.totalStages){
+            // add new dummy rows
+            const dummyStage = { specificImpulse: 300.0, propellantMassFraction: 0.9 };
+            const newStages = [...config.stages];
+            for (let i = config.totalStages; i < totalStages; i++) {
+                newStages.push(dummyStage);
+            }
+            setConfig({ ...config, totalStages, stages: newStages });
+        }
     }
 
     const setTotalDeltaV = (totalDeltaV) => {
