@@ -128,5 +128,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     'http://nginx:80',
-    'http://localhost'
+    'http://localhost',
+    'http://127.0.0.1:5173',
 ]
