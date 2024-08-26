@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios, { Axios } from 'axios';
+import ParametersStage from './ParametersStage';
 
 const Parameters = () => {
     const heading = ["Stage", "Specific Impulse", "Propellant Mass Fraction"];
@@ -19,7 +20,7 @@ const Parameters = () => {
         setConfig({ ...config, name });
     }
 
-    const setStages = (totalStages) => {
+    const setTotalStages = (totalStages) => {
         if (totalStages < 1) return;
         setConfig({ ...config, totalStages });
     }
@@ -29,15 +30,32 @@ const Parameters = () => {
         setConfig({ ...config, totalDeltaV });
     }
 
+    const setStages = (stages) => {
+        setConfig({ ...config, stages });
+    }
+
     return (
         <div>
             <h1>Parameters</h1>
             <label>Name: </label>
             <input type="text" value={config.name} onChange={(e) => setName(e.target.value)} /> <br />
             <label>Total Stages: </label>
-            <input type="number" value={config.totalStages} onChange={(e) => setStages(e.target.value)} />  <br />
+            <input type="number" value={config.totalStages} onChange={(e) => setTotalStages(e.target.value)} />  <br />
             <label>Total Delta-V: </label>
             <input type="number" value={config.totalDeltaV} onChange={(e) => setTotalDeltaV(e.target.value)} />  <br />
+            <h2>Stages</h2>
+            <table>
+                <thead>
+                    <tr>
+                        {heading.map((head) => <th key={head}>{head}</th>)}
+                    </tr>
+                </thead>
+                <tbody>
+                    {config.stages.map((stage, index) => {
+                        return <ParametersStage key={index} index={index} stages={config.stages} setStages={setStages} />
+                    })}
+                </tbody>
+            </table>
         </div>
     )
 }

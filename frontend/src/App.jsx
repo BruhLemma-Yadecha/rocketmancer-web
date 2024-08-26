@@ -4,7 +4,7 @@ import baseConfig from "./config/baseConfig.json";
 import Rocket from "./components/Rocket";
 import Title from './components/Title';
 import DesignForm from "./components/DesignForm";
-import Parameters from "./components/Parameters";
+import Parameters from "./components/Parameters/Parameters";
 
 function App() {
   const [rocket, setRocket] = useState(baseConfig.rocket);
