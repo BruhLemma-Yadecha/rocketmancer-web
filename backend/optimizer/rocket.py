@@ -73,7 +73,7 @@ class Rocket:
         return {
             "name": self.name,
             "payload": self.payload,
-            "deltaV": self.delta_v,
+            "totalDeltaV": self.delta_v,
             "totalStages": self.total_stages,
             "totalMass": self.total_mass,
             "stages": [stage.to_json() for stage in self.stages]
