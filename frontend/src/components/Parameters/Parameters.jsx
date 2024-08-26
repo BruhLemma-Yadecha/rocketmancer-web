@@ -3,7 +3,7 @@ import axios, { Axios } from 'axios';
 import ParametersStage from './ParametersStage';
 
 const Parameters = ({ setRocket }) => {
-    const heading = ["Stage", "Specific Impulse", "Propellant Mass Fraction"];
+    const heading = ["Stage", "Specific Impulse (s)", "Propellant Mass Fraction"];
 
     const [config, setConfig] = useState(undefined);
 
