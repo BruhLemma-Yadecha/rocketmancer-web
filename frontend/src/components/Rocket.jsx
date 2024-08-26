@@ -38,7 +38,7 @@ const Rocket = ({ rocket }) => {
       <div>
         <em>Total Mass ({MASS_UNIT}): </em> {rocket.totalMass} kg <br />
       </div>
-      <h3>Stages</h3>
+      &nbsp;
       <table>
         <tbody>
           <tr>
