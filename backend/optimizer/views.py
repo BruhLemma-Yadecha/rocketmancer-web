@@ -7,6 +7,7 @@ from .rocket import Rocket
 def optimize(request):
     data = request.data
     rocket0 = Rocket(
+        name=data['name'],
         payload=data['payload'],
         delta_v=data['totalDeltaV'],
         total_stages=data['totalStages']

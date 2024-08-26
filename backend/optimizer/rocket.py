@@ -4,7 +4,8 @@ from scipy.optimize import differential_evolution, LinearConstraint
 from .stage import Stage
 
 class Rocket:
-    def __init__(self, payload: float, delta_v: float, total_stages: int):
+    def __init__(self, name: str, payload: float, delta_v: float, total_stages: int):
+        self.name = name
         self.total_stages = total_stages
         self.payload = payload
         self.delta_v = delta_v
@@ -70,6 +71,7 @@ class Rocket:
         
     def to_json(self):
         return {
+            "name": self.name,
             "payload": self.payload,
             "deltaV": self.delta_v,
             "totalStages": self.total_stages,
