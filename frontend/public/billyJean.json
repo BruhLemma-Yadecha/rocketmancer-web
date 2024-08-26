@@ -2,6 +2,7 @@
     "name": "Billy Jean",
     "totalStages": 2,
     "totalDeltaV": 4760.08,
+    "payload": 1000.0,
     "stages": [
         {
             "specificImpulse": 307.36,
