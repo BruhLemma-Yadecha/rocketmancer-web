@@ -26,6 +26,7 @@ const Parameters = ({ setRocket }) => {
     }
 
     const setTotalStages = (totalStages) => {
+        totalStages = parseInt(totalStages);
         if (totalStages < 1) return;
         if (totalStages < config.totalStages) {
             const newStages = config.stages.slice(0, totalStages);

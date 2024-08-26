@@ -9,16 +9,16 @@ const Rocket = ({ rocket }) => {
   if (!rocket) return <div>Loading...</div>;
 
   const properties = [
-    "Delta V",
-    "Mass Ratio",
-    "Payload Mass",
-    "Wet Mass",
-    "Dry Mass",
-    "Structural Mass",
-    "Propellant Mass",
-    "Exhaust Velocity",
-    "Specific Impulse",
-    "Propellant Mass Fraction",
+    {name: "Delta V", type: "velocity"},
+    {name: "Mass Ratio", type: "ratio"},
+    {name: "Payload Mass", type: "mass"},
+    {name: "Wet Mass", type: "mass"},
+    {name: "Dry Mass", type: "mass"},
+    {name: "Structural Mass", type: "mass"},
+    {name: "Propellant Mass", type: "mass"},
+    {name: "Exhaust Velocity", type: "velocity"},
+    {name: "Specific Impulse", type: "time"},
+    {name: "Propellant Mass Fraction", type: "percentage"},
   ];
 
   console.log(rocket);
@@ -33,10 +33,10 @@ const Rocket = ({ rocket }) => {
         <em>Total Delta V: </em> {rocket.totalDeltaV} {VELOCITY_UNIT} <br />
       </div>
       <div>
-        <em>Payload: </em> {rocket.payload} kg <br />
+        <em>Payload ({MASS_UNIT}): </em> {rocket.payload} kg <br />
       </div>
       <div>
-        <em>Total Mass: </em> {rocket.totalMass} kg <br />
+        <em>Total Mass ({MASS_UNIT}): </em> {rocket.totalMass} kg <br />
       </div>
       <h3>Stages</h3>
       <table>
@@ -47,7 +47,7 @@ const Rocket = ({ rocket }) => {
               <td key={index} className={"rocket-display-header"}><em>Stage {index + 1}</em></td>
             ))}
           </tr>
-          {properties.map((property, index) => <DisplayProperty key={index} property={property} stages={rocket.stages} />)}
+          {properties.map((property, index) => <DisplayProperty key={index} name={property.name} type={property.type} stages={rocket.stages} />)}
         </tbody>
       </table>
 
