@@ -42,15 +42,18 @@ const Parameters = ({ setRocket }) => {
     }
 
     const setTotalDeltaV = (totalDeltaV) => {
+        totalDeltaV = parseFloat(totalDeltaV);
         if (totalDeltaV < 0) return;
         setConfig({ ...config, totalDeltaV });
     }
 
     const setStages = (stages) => {
+        stages = parseInt(stages);
         setConfig({ ...config, stages });
     }
 
     const setPayload = (payload) => {
+        payload = parseFloat(payload);
         if (payload <= 0) return;
         setConfig({ ...config, payload });
     }
