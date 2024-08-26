@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios, { Axios } from 'axios';
 import ParametersStage from './ParametersStage';
+import '../../styles/Parameters.css';
 
 const Parameters = ({ setRocket }) => {
     const heading = ["Stage", "Specific Impulse (s)", "Propellant Mass Fraction"];
@@ -62,17 +63,26 @@ const Parameters = ({ setRocket }) => {
     if (!config) return <div>Loading...</div>;
 
     return (
-        <div>
+        <div className={'parameters-display'}>
             <h1>Parameters</h1>
-            <label>Name: </label>
-            <input type="text" value={config.name} onChange={(e) => setName(e.target.value)} /> <br />
-            <label>Total Stages: </label>
-            <input type="number" value={config.totalStages} onChange={(e) => setTotalStages(e.target.value)} />  <br />
-            <label>Total Delta-V: </label>
-            <input type="number" value={config.totalDeltaV} onChange={(e) => setTotalDeltaV(e.target.value)} />  <br />
-            <label>Payload: </label>
-            <input type="number" value={config.payload} onChange={(e) => setPayload(e.target.value)} />  <br />
-            
+            <div>
+                <label>Name: </label>
+                <input type="text" value={config.name} onChange={(e) => setName(e.target.value)} /> <br />
+            </div>
+            <div>
+                <label>Total Stages: </label>
+                <input type="number" value={config.totalStages} onChange={(e) => setTotalStages(e.target.value)} />  <br />
+            </div>
+            <div>
+                <label>Total Delta-V: </label>
+                <input type="number" value={config.totalDeltaV} onChange={(e) => setTotalDeltaV(e.target.value)} />  <br />
+            </div>
+            <div>
+                <label>Payload: </label>
+                <input type="number" value={config.payload} onChange={(e) => setPayload(e.target.value)} />  <br />
+            </div>
+
+
             <h2>Stages</h2>
             <table>
                 <thead>
