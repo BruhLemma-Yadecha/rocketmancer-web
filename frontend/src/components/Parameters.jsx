@@ -15,14 +15,17 @@ const Parameters = () => {
     }, []);
 
     const setName = (name) => {
+        if (!name) return;
         setConfig({ ...config, name });
     }
 
     const setStages = (totalStages) => {
+        if (totalStages < 1) return;
         setConfig({ ...config, totalStages });
     }
 
     const setTotalDeltaV = (totalDeltaV) => {
+        if (totalDeltaV < 0) return;
         setConfig({ ...config, totalDeltaV });
     }
 
