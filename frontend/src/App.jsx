@@ -13,7 +13,7 @@ function App() {
       <Title />
       <Rocket rocket={rocket} setRocket={setRocket} />
       <DesignForm rocket={rocket} setRocket={setRocket} />
-      <Parameters />
+      <Parameters setRocket={setRocket}/>
     </div>
   );
 }
