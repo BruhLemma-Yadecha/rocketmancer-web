@@ -6,7 +6,7 @@ import Title from './components/Title';
 import Parameters from "./components/Parameters/Parameters";
 
 function App() {
-  const [rocket, setRocket] = useState(baseConfig.rocket);
+  const [rocket, setRocket] = useState(undefined);
   return (
     <div>
       <Title />
