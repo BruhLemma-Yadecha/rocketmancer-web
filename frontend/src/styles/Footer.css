@@ -1,5 +1,7 @@
 .footer {
     text-align: center;
-    margin-top: auto;
     background-color: azure;
+    font-size: 14px;
+    padding-top: 0;
+    margin-bottom: 0;
 }
