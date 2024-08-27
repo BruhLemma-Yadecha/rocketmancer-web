@@ -64,7 +64,7 @@ const Parameters = ({ setRocket }) => {
 
     return (
         <div className={'parameters-display'}>
-            <h1>Parameters</h1>
+            <h2>Parameters</h2>
             <div>
                 <label>Name: </label>
                 <input type="text" value={config.name} onChange={(e) => setName(e.target.value)} /> <br />
@@ -81,9 +81,7 @@ const Parameters = ({ setRocket }) => {
                 <label>Payload: </label>
                 <input type="number" value={config.payload} onChange={(e) => setPayload(e.target.value)} />  <br />
             </div>
-
-
-            <h2>Stages</h2>
+            <h3>Stages</h3>
             <table>
                 <thead>
                     <tr>
