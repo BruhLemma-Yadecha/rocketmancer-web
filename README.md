@@ -24,10 +24,14 @@ The backbone of rocketmancer is the Tsiolkovsky Rocket Equation (see [here](http
 
 ## Usage
 ⚠️This section is under construction! Some features are WIP and the project may have non-functional sections in its current state!⚠️
-
+![image](https://github.com/user-attachments/assets/a7c1f863-0bd5-4ee3-8dff-8cb5330ba3ef)
 The backend contains the optimization API under /optimize/.
 
-To use the site, build the image and start the container, giving you access to a simple SPA with a form where you can submit the two parameters for each stage. Once you add enough stages, the configuration will be generated and displayed automatically. You can tweak the configuration to have the system re-optimize the configuration on the fly.
+To use the site, build the image and start the container:
+```
+docker-compose up --build
+```
+This will launch a simple SPA on port 80 with a form where you can submit the two parameters for each stage. The site automatically loads a sample configuration, but you can tweak it and see the optimized result displayed in the top section.
 
 This works on port 80 by default, but can be configured to run on a different port.
 
