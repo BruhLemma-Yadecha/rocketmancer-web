@@ -4,6 +4,7 @@ import DisplayProperty from "./DisplayProperty";
 const MASS_UNIT = "t";
 const VELOCITY_UNIT = "m/s";
 const SPECIFIC_IMPULSE_UNIT = "s";
+const DECIMAL_PLACES = 4;
 
 const Rocket = ({ rocket }) => {
   if (!rocket) return <div>Loading...</div>;
@@ -27,16 +28,16 @@ const Rocket = ({ rocket }) => {
 
       <h2 className={"rocket-display-name"}>{rocket.name}</h2>
       <div>
-        <em>Stages: </em> {rocket.totalStages} <br />
+        <b>Stages: </b> {rocket.totalStages} <br />
       </div>
       <div>
-        <em>Total Delta V: </em> {rocket.totalDeltaV} {VELOCITY_UNIT} <br />
+        <b>Total Delta V: </b> {rocket.totalDeltaV.toFixed(DECIMAL_PLACES)} {VELOCITY_UNIT} <br />
       </div>
       <div>
-        <em>Payload ({MASS_UNIT}): </em> {rocket.payload} kg <br />
+        <b>Payload ({MASS_UNIT}): </b> {rocket.payload.toFixed(DECIMAL_PLACES)} kg <br />
       </div>
       <div>
-        <em>Total Mass ({MASS_UNIT}): </em> {rocket.totalMass} kg <br />
+        <b>Total Mass ({MASS_UNIT}): </b> {rocket.totalMass.toFixed(DECIMAL_PLACES)} kg <br />
       </div>
       &nbsp;
       <table>
@@ -44,7 +45,7 @@ const Rocket = ({ rocket }) => {
           <tr>
             <td></td>
             {rocket.stages.map((stage, index) => (
-              <td key={index} className={"rocket-display-header"}><em>Stage {index + 1}</em></td>
+              <td key={index} className={"rocket-display-header"}><b>Stage {index + 1}</b></td>
             ))}
           </tr>
           {properties.map((property, index) => <DisplayProperty key={index} name={property.name} type={property.type} stages={rocket.stages} />)}

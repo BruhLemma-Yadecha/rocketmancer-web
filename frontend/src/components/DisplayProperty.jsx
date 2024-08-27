@@ -1,3 +1,6 @@
+import '../styles/DisplayProperty.css';
+
+const DECIMAL_PLACES = 4;
 const MASS_UNIT = "t";
 const VELOCITY_UNIT = "m/s";
 const SPECIFIC_IMPULSE_UNIT = "s";
@@ -6,6 +9,11 @@ const typeToUnit = {
     "mass": MASS_UNIT,
     "time": SPECIFIC_IMPULSE_UNIT,
 };
+
+function fixDecimals(number) {
+    // take number to four decimal places
+    return number.toFixed(DECIMAL_PLACES);
+}
 
 const DisplayProperty = ({ name, type, stages }) => {
     const convertName = () => {
@@ -17,8 +25,8 @@ const DisplayProperty = ({ name, type, stages }) => {
     const convertedName = convertName();
     return (
         <tr>
-            <td>{name} {(type == "ratio" || type == "percentage") ? "" : `(${typeToUnit[type]})`}</td>
-            {stages.map((stage, index) => <td key={index}>{stage[convertedName]}</td>)}
+            <td><b>{name} {(type == "ratio" || type == "percentage") ? "" : `(${typeToUnit[type]})`}</b> </td>
+            {stages.map((stage, index) => <td key={index} className={"table-element"}>{fixDecimals(stage[convertedName])}</td>)}
         </tr>
     );
 };
