@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "./App.css";
 import Rocket from "./components/Rocket";
 import Title from './components/Title';
 import Parameters from "./components/Parameters/Parameters";
