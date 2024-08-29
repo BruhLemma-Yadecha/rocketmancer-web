@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios, { Axios } from 'axios';
+import axios from 'axios';
 import ParametersStage from './ParametersStage';
 import '../../styles/Parameters.css';
 
