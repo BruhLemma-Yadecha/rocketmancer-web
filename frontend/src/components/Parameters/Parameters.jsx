@@ -46,7 +46,6 @@ const Parameters = ({ setRocket, rocketName, setRocketName }) => {
     }
 
     const setStages = (stages) => {
-        stages = parseInt(stages);
         setConfig({ ...config, stages, name: rocketName});
     }
 
@@ -89,7 +88,7 @@ const Parameters = ({ setRocket, rocketName, setRocketName }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {config.stages.map((stage, index) => {
+                    {config.stages.map((_, index) => {
                         return <ParametersStage key={index} index={index} stages={config.stages} setStages={setStages} />
                     })}
                 </tbody>
