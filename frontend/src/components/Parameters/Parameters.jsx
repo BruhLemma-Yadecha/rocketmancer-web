@@ -3,7 +3,7 @@ import axios, { Axios } from 'axios';
 import ParametersStage from './ParametersStage';
 import '../../styles/Parameters.css';
 
-const Parameters = ({ setRocket }) => {
+const Parameters = ({ setRocket, rocketName, setRocketName }) => {
     const heading = ["Stage", "Specific Impulse (s)", "Propellant Mass Fraction"];
 
     const [config, setConfig] = useState(undefined);
@@ -11,6 +11,7 @@ const Parameters = ({ setRocket }) => {
     useEffect(() => {
         axios.get("/billyJean.json").then((response) => {
             setConfig(response.data);
+            setRocketName(response.data.name);
         });
     }, []);
 
@@ -20,11 +21,6 @@ const Parameters = ({ setRocket }) => {
             setRocket(response.data.result);
         });
     }, [config]);
-
-    const setName = (name) => {
-        if (!name) return;
-        setConfig({ ...config, name });
-    }
 
     const setTotalStages = (totalStages) => {
         totalStages = parseInt(totalStages);
@@ -39,25 +35,29 @@ const Parameters = ({ setRocket }) => {
             for (let i = config.totalStages; i < totalStages; i++) {
                 newStages.push(dummyStage);
             }
-            setConfig({ ...config, totalStages, stages: newStages });
+            setConfig({ ...config, totalStages, stages: newStages, name: rocketName });
         }
     }
 
     const setTotalDeltaV = (totalDeltaV) => {
         totalDeltaV = parseFloat(totalDeltaV);
         if (totalDeltaV < 0) return;
-        setConfig({ ...config, totalDeltaV });
+        setConfig({ ...config, totalDeltaV, name: rocketName });
     }
 
     const setStages = (stages) => {
         stages = parseInt(stages);
-        setConfig({ ...config, stages });
+        setConfig({ ...config, stages, name: rocketName});
     }
 
     const setPayload = (payload) => {
         payload = parseFloat(payload);
         if (payload <= 0) return;
-        setConfig({ ...config, payload });
+        setConfig({ ...config, payload, name: rocketName });
+    }
+
+    const setName = (editedName) => {
+        setRocketName(editedName);
     }
 
     if (!config) return <div>Loading...</div>;
@@ -67,7 +67,7 @@ const Parameters = ({ setRocket }) => {
             <h2>Parameters</h2>
             <div>
                 <label>Name: </label>
-                <input type="text" value={config.name} onChange={(e) => setName(e.target.value)} /> <br />
+                <input type="text" value={rocketName} onChange={(e) => setName(e.target.value)} /> <br />
             </div>
             <div>
                 <label>Total Stages: </label>

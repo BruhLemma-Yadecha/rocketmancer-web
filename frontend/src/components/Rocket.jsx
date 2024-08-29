@@ -6,7 +6,7 @@ const VELOCITY_UNIT = "m/s";
 const SPECIFIC_IMPULSE_UNIT = "s";
 const DECIMAL_PLACES = 4;
 
-const Rocket = ({ rocket }) => {
+const Rocket = ({ rocket, rocketName }) => {
   if (!rocket) return <div>Loading...</div>;
 
   const properties = [
@@ -21,12 +21,10 @@ const Rocket = ({ rocket }) => {
     {name: "Specific Impulse", type: "time"},
     {name: "Propellant Mass Fraction", type: "percentage"},
   ];
-
-  console.log(rocket);
   return (
     <div className={"rocket-display"}>
 
-      <h2 className={"rocket-display-name"}>{rocket.name}</h2>
+      <h2 className={"rocket-display-name"}>{rocketName}</h2>
       <div>
         <b>Stages: </b> {rocket.totalStages} <br />
       </div>

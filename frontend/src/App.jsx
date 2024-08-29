@@ -6,11 +6,12 @@ import './styles/App.css'
 
 function App() {
   const [rocket, setRocket] = useState(undefined);
+  const [rocketName, setRocketName] = useState(undefined);
   return (
     <div className={'site-body'}>
       <Title />
-      <Rocket rocket={rocket} setRocket={setRocket} />
-      <Parameters setRocket={setRocket}/>
+      <Rocket rocket={rocket} rocketName={rocketName}/>
+      <Parameters rocketName={rocketName} setRocketName={setRocketName} setRocket={setRocket}/>
     </div>
   );
 }
