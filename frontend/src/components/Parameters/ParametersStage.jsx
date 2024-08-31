@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import '../../styles/Parameters.css';
 
 const ParametersStage = ({ index, stages, setStages }) => {
     const [specificImpulse, setSpecificImpulse] = useState(stages[index].specificImpulse);
@@ -26,12 +27,12 @@ const ParametersStage = ({ index, stages, setStages }) => {
 
     return (
         <tr key={index}>
-            <td>{index + 1}</td>
+            <td className={"parameters-stage"}>{index + 1}</td>
             <td>
-                <input type="number" value={specificImpulse} onChange={(e) => editSpecificImpulse(e.target.value)} />
+                <input  className={"parameters-input parameters-stage"} type="number" value={specificImpulse} onChange={(e) => editSpecificImpulse(e.target.value)} />
             </td>
             <td>
-                <input type="number" value={propellantMassFraction} onChange={(e) => editPropellantMassFraction(e.target.value)} />
+                <input  className={"parameters-input parameters-stage"} type="number" value={propellantMassFraction} onChange={(e) => editPropellantMassFraction(e.target.value)} />
             </td>
         </tr>
     )
