@@ -7,6 +7,7 @@ const Parameters = ({ setRocket, rocketName, setRocketName }) => {
     const heading = ["Stage", "Specific Impulse (s)", "Propellant Mass Fraction"];
 
     const [config, setConfig] = useState(undefined);
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         axios.get("/billyJean.json").then((response) => {
@@ -20,7 +21,7 @@ const Parameters = ({ setRocket, rocketName, setRocketName }) => {
         axios.post("http://localhost:8000/optimize/", config).then((response) => {
             setRocket(response.data.result);
         });
-    }, [config]);
+    }, [refresh]);
 
     const setTotalStages = (totalStages) => {
         totalStages = parseInt(totalStages);
@@ -93,6 +94,7 @@ const Parameters = ({ setRocket, rocketName, setRocketName }) => {
                     })}
                 </tbody>
             </table>
+            <button onClick={(e) => setRefresh(!refresh)}>Refresh</button>
         </div>
     )
 }
