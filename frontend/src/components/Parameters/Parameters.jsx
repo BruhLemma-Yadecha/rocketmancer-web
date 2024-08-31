@@ -7,6 +7,7 @@ const Parameters = ({ setRocket, rocketName, setRocketName }) => {
     const heading = ["Stage", "Specific Impulse (s)", "Propellant Mass Fraction"];
 
     const [config, setConfig] = useState(undefined);
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         axios.get("/billyJean.json").then((response) => {
@@ -20,7 +21,7 @@ const Parameters = ({ setRocket, rocketName, setRocketName }) => {
         axios.post("http://localhost:8000/optimize/", config).then((response) => {
             setRocket(response.data.result);
         });
-    }, [config]);
+    }, [refresh]);
 
     const setTotalStages = (totalStages) => {
         totalStages = parseInt(totalStages);
@@ -66,19 +67,19 @@ const Parameters = ({ setRocket, rocketName, setRocketName }) => {
             <h2>Parameters</h2>
             <div>
                 <label>Name: </label>
-                <input type="text" value={rocketName} onChange={(e) => setName(e.target.value)} /> <br />
+                <input className={"parameters-input"} type="text" value={rocketName} onChange={(e) => setName(e.target.value)} /> <br />
             </div>
             <div>
                 <label>Total Stages: </label>
-                <input type="number" value={config.totalStages} onChange={(e) => setTotalStages(e.target.value)} />  <br />
+                <input className={"parameters-input"} type="number" value={config.totalStages} onChange={(e) => setTotalStages(e.target.value)} />  <br />
             </div>
             <div>
                 <label>Total Delta-V: </label>
-                <input type="number" value={config.totalDeltaV} onChange={(e) => setTotalDeltaV(e.target.value)} />  <br />
+                <input className={"parameters-input"} type="number" value={config.totalDeltaV} onChange={(e) => setTotalDeltaV(e.target.value)} />  <br />
             </div>
             <div>
                 <label>Payload: </label>
-                <input type="number" value={config.payload} onChange={(e) => setPayload(e.target.value)} />  <br />
+                <input className={"parameters-input"} type="number" value={config.payload} onChange={(e) => setPayload(e.target.value)} />  <br />
             </div>
             <h3>Stages</h3>
             <table>
@@ -93,6 +94,7 @@ const Parameters = ({ setRocket, rocketName, setRocketName }) => {
                     })}
                 </tbody>
             </table>
+            <button className={"parameters-refresh"}onClick={(e) => setRefresh(!refresh)}>Refresh</button>
         </div>
     )
 }
