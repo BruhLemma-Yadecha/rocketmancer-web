@@ -67,19 +67,19 @@ const Parameters = ({ setRocket, rocketName, setRocketName }) => {
             <h2>Parameters</h2>
             <div>
                 <label>Name: </label>
-                <input type="text" value={rocketName} onChange={(e) => setName(e.target.value)} /> <br />
+                <input className={"parameters-input"} type="text" value={rocketName} onChange={(e) => setName(e.target.value)} /> <br />
             </div>
             <div>
                 <label>Total Stages: </label>
-                <input type="number" value={config.totalStages} onChange={(e) => setTotalStages(e.target.value)} />  <br />
+                <input className={"parameters-input"} type="number" value={config.totalStages} onChange={(e) => setTotalStages(e.target.value)} />  <br />
             </div>
             <div>
                 <label>Total Delta-V: </label>
-                <input type="number" value={config.totalDeltaV} onChange={(e) => setTotalDeltaV(e.target.value)} />  <br />
+                <input className={"parameters-input"} type="number" value={config.totalDeltaV} onChange={(e) => setTotalDeltaV(e.target.value)} />  <br />
             </div>
             <div>
                 <label>Payload: </label>
-                <input type="number" value={config.payload} onChange={(e) => setPayload(e.target.value)} />  <br />
+                <input className={"parameters-input"} type="number" value={config.payload} onChange={(e) => setPayload(e.target.value)} />  <br />
             </div>
             <h3>Stages</h3>
             <table>
@@ -94,7 +94,7 @@ const Parameters = ({ setRocket, rocketName, setRocketName }) => {
                     })}
                 </tbody>
             </table>
-            <button onClick={(e) => setRefresh(!refresh)}>Refresh</button>
+            <button className={"parameters-refresh"}onClick={(e) => setRefresh(!refresh)}>Refresh</button>
         </div>
     )
 }
