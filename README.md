@@ -28,6 +28,7 @@ The backbone of rocketmancer is the Tsiolkovsky Rocket Equation (see [here](http
 The backend contains the optimization API under /optimize/.
 
 ⚠️This feature is currently being refactored to reflect new changes⚠️
+
 To use the site, build the image and start the container:
 ```
 docker-compose up --build
