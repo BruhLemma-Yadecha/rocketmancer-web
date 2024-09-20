@@ -8,10 +8,10 @@ services:
       - ./backend:/app
     ports:
       - "8000:8000"
-  nginx:
+  frontend:
     build:
       context: ./frontend
-    container_name: nginx
+    container_name: frontend
     
     volumes:
       - ./nginx/rocketmancer.conf:/etc/nginx/conf.d/default.conf
