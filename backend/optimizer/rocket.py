@@ -1,6 +1,7 @@
 from typing import List
 
-from scipy.optimize import differential_evolution, LinearConstraint
+from numpy import zeros
+from scipy.optimize import differential_evolution, LinearConstraint, minimize
 from .stage import Stage
 
 
@@ -32,28 +33,26 @@ class Rocket:
 
     def __objective__(self, delta_v_fractions: List[float]):
         self.build(delta_v_fractions)
-        return self.total_mass
+        return self.total_mass if self.total_mass > 0 else 1e30
 
     def optimize(self):
-        # needs at least 1 stage
         if self.total_stages < 1:
             raise ValueError("Rocket must have at least 1 stage")
 
-        bounds = [(0, 1) for _ in range(self.total_stages)]
         linear_constraint = LinearConstraint([1] * self.total_stages, 1, 1)
         initial_configuration = [1 / self.total_stages] * self.total_stages
-        result = differential_evolution(
+        
+        result_refined = minimize(
             self.__objective__,
-            bounds,
+            initial_configuration,
+            method='trust-constr',
             constraints=[linear_constraint],
-            workers=-1,
-            updating="deferred",
-            disp=True,
-            x0=initial_configuration,
+            hess=lambda x: zeros((len(x), len(x))),
         )
-        if result.success:
-            self.delta_v_fractions = result.x
-            self.build(result.x)
+        
+        if result_refined.success:
+            self.delta_v_fractions = result_refined.x
+            self.build(result_refined.x)
         else:
             print("Failed to optimize! Rocket may be impossible or nearly impossible!")
 
