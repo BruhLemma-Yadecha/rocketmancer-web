@@ -1,7 +1,7 @@
 from typing import List
 
 from numpy import zeros
-from scipy.optimize import differential_evolution, LinearConstraint, minimize
+from scipy.optimize import LinearConstraint, minimize
 from .stage import Stage
 
 
