@@ -2,11 +2,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from .rocket import Rocket
-from functools import lru_cache
 
-CACHE_SIZE = 32
-
-@lru_cache(maxsize=CACHE_SIZE)
 @api_view(['POST'])
 def optimize(request):
     data = request.data
