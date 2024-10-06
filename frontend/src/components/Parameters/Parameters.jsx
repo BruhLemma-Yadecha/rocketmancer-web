@@ -18,7 +18,7 @@ const Parameters = ({ setRocket, rocketName, setRocketName }) => {
 
     useEffect(() => {
         if (!config) return;
-        axios.post("http://localhost:8000/optimize/", config).then((response) => {
+        axios.post("/api/optimize/", config).then((response) => {
             setRocket(response.data.result);
         });
     }, [refresh]);
