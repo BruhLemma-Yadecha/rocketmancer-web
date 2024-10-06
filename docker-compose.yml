@@ -2,12 +2,16 @@ services:
   backend:
     build:
       context: ./backend
-    container_name: django_backend
-    command: python manage.py runserver 0.0.0.0:8000
+    container_name: backend
+    command: "gunicorn rocketmancer.wsgi:application --bind 0.0.0.0:8000"
     volumes:
       - ./backend:/app
+    environment:
+      - SECRET_KEY=${DJANGO_SECRET_KEY}
     ports:
       - "8000:8000"
+    networks:
+      - rocketmancer-network
   frontend:
     build:
       context: ./frontend
@@ -19,3 +23,9 @@ services:
       - "80:80"
     depends_on:
       - backend
+    networks:
+      - rocketmancer-network
+  
+networks:
+  rocketmancer-network:
+    driver: bridge
